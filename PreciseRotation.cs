@@ -9,11 +9,13 @@ using UnityEngine;
 
 namespace PreciseRotation
 {
-    [BepInPlugin("com.github.johndowson.PreciseRotation", "PreciseRotation", "1.0.0")]
+    [BepInPlugin("com.github.johndowson.PreciseRotation", "PreciseRotation", "1.0.1")]
     public class PreciseRotation : BaseUnityPlugin
     {
         public static ConfigEntry<int> RotationSteps;
+        public static ConfigEntry<bool> OverrideRotation;
         public static ConfigEntry<KeyCode> RotationModifier;
+        public static readonly string ZRotationButtonName = "PreciseRotationModifier";
 
         private static readonly Harmony harmony = new(typeof(PreciseRotation).GetCustomAttributes(typeof(BepInPlugin), false)
             .Cast<BepInPlugin>()
@@ -23,8 +25,9 @@ namespace PreciseRotation
         private void Awake()
         {
             RotationModifier = Config.Bind("General", "RotationModifier", KeyCode.LeftAlt, "Key to toggle precise rotation");
+            OverrideRotation = Config.Bind("General", "OverrideRotation", false, "Key to toggle precise rotation");
             RotationSteps = Config.Bind("General", "RotationSteps", 16, "Number of rotation steps per 180 degrees, Valheim's default is 8");
-
+            ZInput.instance.AddButton(ZRotationButtonName, RotationModifier.Value);
             harmony.PatchAll();
         }
 
@@ -52,16 +55,20 @@ namespace PreciseRotation
                         codes[i + 8].opcode == OpCodes.Call)
 
                     {
-                        codes[i + 2] = CodeInstruction.Call(typeof(PieceRotation_Patch), "GetRotationSteps");
+                        if (OverrideRotation.Value)
+                            codes[i + 2].operand = 180.0f / RotationSteps.Value;
+                        else
+                            codes[i + 2] = CodeInstruction.Call(typeof(PieceRotation_Patch), "GetRotationSteps");
                     }
                 }
                 return codes.AsEnumerable();
             }
             public static float GetRotationSteps()
             {
-                bool rotationModKeyDown = Input.GetKey(RotationModifier.Value);
+                bool rotationModKeyHeld = ZInput.GetButton(ZRotationButtonName);
+
                 float rotationPerStep = 180.0f / 8;
-                if (rotationModKeyDown)
+                if (rotationModKeyHeld)
                     rotationPerStep = 180.0f / RotationSteps.Value;
                 
                 return rotationPerStep;
