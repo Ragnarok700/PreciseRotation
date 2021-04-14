@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30114.105
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PreciseRotation", "PreciseRotation.csproj", "{A1676A1A-F9ED-4423-9D30-426C554C43FC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A1676A1A-F9ED-4423-9D30-426C554C43FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1676A1A-F9ED-4423-9D30-426C554C43FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E3E5DC1C-CADE-4D94-8030-298BC11E002A}
+	EndGlobalSection
+EndGlobal
