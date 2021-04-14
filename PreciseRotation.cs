@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace PreciseRotation
 {
-    [BepInPlugin("com.github.johndowson.PreciseRotation", "PreciseRotation", "2.0.0")]
+    [BepInPlugin("com.github.johndowson.PreciseRotation", "PreciseRotation", "3.0.0")]
     public class PreciseRotation : BaseUnityPlugin
     {
         public static ConfigEntry<int> RotationSteps;
