@@ -1,0 +1,4 @@
+== Requirements ==
+* BepInEx core files (BepInEx\core)
+* Valheim unity managed DLLs (Valheim\unstripped_managed)
+* 
